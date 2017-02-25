@@ -84,9 +84,9 @@ public class PlayerControl : MonoBehaviour {
 				RaycastHit hitInfo;
 				if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo, 50f)) {
 					if (leftArmJoint != null) {
-						leftArmAgent.enabled = true;
 						leftArmJoint.breakForce = 0;
 					}
+					leftArmAgent.enabled = true;
 					leftArmAgent.SetDestination (hitInfo.point);
 					currentState = STRETCHING_ARM;
 				}
@@ -96,7 +96,7 @@ public class PlayerControl : MonoBehaviour {
 		if (currentState == STRETCHING_ARM)
 		{
 			// If the arm has reached its position.
-			if (Vector3.Distance (leftArm.position, leftArmAgent.destination) < 1f) {
+			if (Vector3.Distance (leftArm.position, leftArmAgent.destination) < 0.3f) {
 				leftArmAgent.Stop ();
 				leftArmAgent.enabled = false;
 				leftArm.gameObject.AddComponent<CharacterJoint> ();
