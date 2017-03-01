@@ -33,6 +33,16 @@ public class PlayerControl : MonoBehaviour {
 
 	void Update ()
 	{
+        // Joint failsafe.
+        if (currentState != STRETCHING_ARM && currentState != ARM_RETURNING_TO_PLAYER && leftArmJoint == null)
+        {
+            leftArm.gameObject.AddComponent<CharacterJoint>();
+            leftArmJoint = leftArm.GetComponent<CharacterJoint>();
+            leftArmJoint.connectedBody = centerSpine.GetComponent<Rigidbody> ();
+            //            leftArmAgent.Stop();
+            //            leftArmAgent.enabled = false;
+        }
+
 		/* MOVEMENT */
 
         if (currentState == FREE_MOVEMENT || currentState == STRETCHING_ARM || currentState == ARM_RETURNING_TO_PLAYER)
@@ -61,7 +71,7 @@ public class PlayerControl : MonoBehaviour {
 		else if (currentState == MOVING_TOWARDS_ARM)
 		{
            // If player has reached arm position, reattach arm.
-			if (Vector3.Distance (leftArm.position, centerSpine.position) < 0.25f) {
+			if (Vector3.Distance (leftArm.position, centerSpine.position) < 1f) {
 				leftArmJoint.connectedBody = centerSpine.GetComponent<Rigidbody> ();
 				currentState = FREE_MOVEMENT;
 			}

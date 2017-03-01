@@ -40,7 +40,7 @@ public class LevelSetup : MonoBehaviour
         DestroyImmediate(GameObject.Find("Level"));
 
         // Get proper heights for each block type:
-        wallHeight = chunkSize / 2;
+        wallHeight = chunkSize / 5;
         floorHeight = -chunkSize / 2;
         lavaHeight = -2f;
 
@@ -113,7 +113,9 @@ public class LevelSetup : MonoBehaviour
 
                     // Instantiate the player.
                     GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-                    playerObj.transform.position = new Vector3(newChunkPosition.x, 1f, newChunkPosition.z);
+                    playerObj.transform.root.position = new Vector3(newChunkPosition.x, 1f, newChunkPosition.z-0.5f);
+                   
+
                 }
                 else if (line[i] == SKELETON_START_CHAR)
                 {
