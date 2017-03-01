@@ -66,7 +66,7 @@ public class LevelSetup : MonoBehaviour
 		// Go through the text file character by character to create the level.
 		while (!streamReader.EndOfStream)
 		{
-			GameObject newChunk = new GameObject ();
+			GameObject newChunk = new GameObject ("BIRD ANUS");
 
 			string line = streamReader.ReadLine ();
 
@@ -86,21 +86,18 @@ public class LevelSetup : MonoBehaviour
                     newChunk = (GameObject)Instantiate(wall);
                     newChunk.transform.parent = wallHolder.transform;
                 }
-
                 else if (line[i] == REGULAR_FLOOR_CHAR)
                 {
                     newChunkPosition.y = floorHeight;
                     newChunk = (GameObject)Instantiate(regularFloor);
                     newChunk.transform.parent = regFloorHolder.transform;
                 }
-
                 else if (line[i] == GRABBABLE_FLOOR_CHAR)
                 {
                     newChunkPosition.y = floorHeight;
                     newChunk = (GameObject)Instantiate(grabbableFloor);
                     newChunk.transform.parent = grabFloorHolder.transform;
                 }
-
                 else if (line[i] == LAVA_CHAR)
                 {
                     newChunkPosition.y = lavaHeight;
@@ -126,11 +123,10 @@ public class LevelSetup : MonoBehaviour
                     newChunk.transform.parent = regFloorHolder.transform;
 
                     // Instantiate the skeleton.
-                    GameObject skelly = (GameObject) Instantiate(skeleton);
+                    GameObject skelly = (GameObject)Instantiate(skeleton);
                     skelly.transform.position = new Vector3(newChunkPosition.x, 1f, newChunkPosition.z);
                     skelly.transform.parent = levelHolder.transform;
                 }
-
 
 				// Set the position of the new chunk.
 				newChunk.transform.position = newChunkPosition;
@@ -142,5 +138,15 @@ public class LevelSetup : MonoBehaviour
 			levelPosX = 0f;
 			levelPosZ -= chunkSize;
 		}
+
+        // Delete all rogue game objects. (Hacky solution because this script was generating blank game objects & I can't figure out why or be bothered to care.
+        GameObject[] fuckEverything = GameObject.FindObjectsOfType<GameObject>();
+        foreach (GameObject penis in fuckEverything)
+        {
+            if (penis.name == "BIRD ANUS")
+            {
+                DestroyImmediate(penis);
+            }
+        }
 	}
 }
