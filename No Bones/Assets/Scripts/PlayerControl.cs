@@ -21,6 +21,9 @@ public class PlayerControl : MonoBehaviour {
     const int ARM_RETURNING_TO_PLAYER = 3;
 	int currentState = 0;
 
+    // Audio
+    public AudioSource whaSound;
+
 
 	void Start ()
 	{
@@ -66,6 +69,8 @@ public class PlayerControl : MonoBehaviour {
 					rb.AddTorque (torque, ForceMode.Impulse);
 				}
 			}
+
+
 		}
 
 		else if (currentState == MOVING_TOWARDS_ARM)
@@ -96,6 +101,8 @@ public class PlayerControl : MonoBehaviour {
 			RaycastHit hitInfo;
 			if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo, 50f))
             {
+                whaSound.Play();
+
 				if (leftArmJoint != null)
                 {
 					leftArmJoint.breakForce = 0;

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
         {
             instance = this;
             DontDestroyOnLoad(this);
+//            Invoke("SetPitch", 1f);
         }
         else
         {
@@ -55,9 +56,19 @@ public class GameManager : MonoBehaviour {
         // If it's a gameplay scene:
         else
         {
+            if (currentLevel == 9) GetComponent<AudioSource>().pitch = 2f;
+
+            GetComponent<AudioSource>().pitch -= 0.1f;
             nextScene = "Level" + currentLevel + " Skelly Nope";
         }
 
         SceneManager.LoadScene(nextScene);
+    }
+
+    void SetPitch()
+    {
+        GetComponent<AudioSource>().pitch = -0.6f;
+        GetComponent<AudioSource>().time = 150f;
+        GetComponent<AudioSource>().Play();
     }
 }
